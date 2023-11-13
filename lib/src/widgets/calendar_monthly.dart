@@ -93,7 +93,7 @@ class _CalendarMonthlyState extends State<CalendarMonthly> {
                 style: TextStyle(
                     color: dayNames[index] == dayName
                         ? DayOptions.of(context).selectedBackgroundColor
-                        : null,
+                        : Colors.grey.shade100,
                     fontSize: 15,
                     fontFamily: CalendarOptions.of(context).font),
               ),
