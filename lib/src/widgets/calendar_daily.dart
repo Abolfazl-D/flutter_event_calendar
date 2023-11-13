@@ -42,7 +42,7 @@ class CalendarDaily extends StatelessWidget {
         children: [
           ListView(
             shrinkWrap: true,
-            reverse: EventCalendar.calendarProvider.isRTL(),
+            // reverse: EventCalendar.calendarProvider.isRTL(),
             controller: animatedTo,
             scrollDirection: Axis.horizontal,
             children: daysMaker(context),

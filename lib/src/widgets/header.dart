@@ -23,128 +23,151 @@ class Header extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         child: Directionality(
           textDirection: EventCalendar.calendarProvider.isRTL() ? TextDirection.rtl : TextDirection.ltr,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
+            alignment: Alignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             // Title , next and previous button
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      CalendarUtils.goToDay(1);
-                      CalendarUtils.previousMonth();
-                      onMonthChanged.call(CalendarUtils.getPartByInt(format:PartFormat.MONTH));
-                    },
-                    customBorder: CircleBorder(),
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: RotatedBox(
-                        quarterTurns: 2,
-                        child: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 18,
-                          color: HeaderOptions.of(context).navigationColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: EventCalendar.calendarProvider.isRTL() ? Alignment.centerRight : Alignment.centerLeft,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
+                      InkWell(
                         onTap: () {
-                          showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (BuildContext mmm) {
-                              return SelectMonth(
-                                onHeaderChanged: onMonthChanged,
-                                monthStyle: MonthOptions(
-                                  font: CalendarOptions.of(context).font,
-                                  selectedColor: DayOptions.of(context)
-                                      .selectedBackgroundColor,
-                                  backgroundColor: CalendarOptions.of(context).bottomSheetBackColor
-                                ),
-                              );
-                            },
-                          );
+                          CalendarUtils.goToDay(1);
+                          CalendarUtils.previousMonth();
+                          onMonthChanged.call(CalendarUtils.getPartByInt(
+                              format: PartFormat.MONTH));
                         },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: Text(
-                            '${CalendarUtils.getPartByString(
-                              format: PartFormat.MONTH,
-                              options: HeaderOptions.of(context),
-                            )}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                              color: HeaderOptions.of(context).headerTextColor,
-                              fontFamily: CalendarOptions.of(context).font,
+                        customBorder: CircleBorder(),
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: RotatedBox(
+                            quarterTurns: 2,
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                              color: HeaderOptions.of(context).navigationColor,
                             ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (BuildContext mmm) {
-                              return SelectYear(
-                                onHeaderChanged: onYearChanged,
-                                yearStyle: YearOptions(
-                                  font: CalendarOptions.of(context).font,
-                                  selectedColor: DayOptions.of(context)
-                                      .selectedBackgroundColor,
-                                    backgroundColor: CalendarOptions.of(context).bottomSheetBackColor
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          '${CalendarUtils.getPartByInt(format: PartFormat.YEAR)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                            color: HeaderOptions.of(context).headerTextColor,
-                            fontFamily: CalendarOptions.of(context).font,
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-              // if (!isInTodayIndex()) buildRefreshView(),
-              Row(
-                children: [
-                  buildRefreshView(context),
-                  buildSelectViewType(context),
-                  InkWell(
-                    customBorder: CircleBorder(),
-                    onTap: () {
-                      CalendarUtils.goToDay(1);
-                      CalendarUtils.nextMonth();
-                      onMonthChanged.call(CalendarUtils.getPartByInt(format:PartFormat.MONTH));
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 18,
-                        color: HeaderOptions.of(context).navigationColor,
+
+                  SizedBox(
+                    // width: 50,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: EventCalendar.calendarProvider.isRTL()
+                          ? Alignment.center
+                          : Alignment.center,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (BuildContext mmm) {
+                                  return SelectMonth(
+                                    onHeaderChanged: onMonthChanged,
+                                    monthStyle: MonthOptions(
+                                        font: CalendarOptions.of(context).font,
+                                        selectedColor: DayOptions.of(context)
+                                            .selectedBackgroundColor,
+                                        backgroundColor:
+                                            CalendarOptions.of(context)
+                                                .bottomSheetBackColor),
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                '${CalendarUtils.getPartByString(
+                                  format: PartFormat.MONTH,
+                                  options: HeaderOptions.of(context),
+                                )}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  color:
+                                      HeaderOptions.of(context).headerTextColor,
+                                  fontFamily: CalendarOptions.of(context).font,
+                                ),
+                              ),
+                            ),
+                          ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     showModalBottomSheet(
+                          //       backgroundColor: Colors.transparent,
+                          //       context: context,
+                          //       builder: (BuildContext mmm) {
+                          //         return SelectYear(
+                          //           onHeaderChanged: onYearChanged,
+                          //           yearStyle: YearOptions(
+                          //             font: CalendarOptions.of(context).font,
+                          //             selectedColor: DayOptions.of(context)
+                          //                 .selectedBackgroundColor,
+                          //               backgroundColor: CalendarOptions.of(context).bottomSheetBackColor
+                          //           ),
+                          //         );
+                          //       },
+                          //     );
+                          //   },
+                          //   child: Text(
+                          //     '${CalendarUtils.getPartByInt(format: PartFormat.YEAR)}',
+                          //     style: TextStyle(
+                          //       fontWeight: FontWeight.w500,
+                          //       fontSize: 20,
+                          //       color: HeaderOptions.of(context).headerTextColor,
+                          //       fontFamily: CalendarOptions.of(context).font,
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
                       ),
                     ),
                   ),
+                  // if (!isInTodayIndex()) buildRefreshView(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        customBorder: CircleBorder(),
+                        onTap: () {
+                          CalendarUtils.goToDay(1);
+                          CalendarUtils.nextMonth();
+                          onMonthChanged.call(CalendarUtils.getPartByInt(
+                              format: PartFormat.MONTH));
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 18,
+                            color: HeaderOptions.of(context).navigationColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
+              ),
+              // buildSelectViewType(context),
+              Positioned(
+                left: 12,
+                child: Align(
+                  child: buildRefreshView(context),
+                ),
               ),
             ],
           ),

@@ -112,10 +112,9 @@ class _EventCalendarState extends State<EventCalendar> {
       child: (context) {
         return SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            // height: MediaQuery.of(context).size.height,
             child: Column(
-
-             mainAxisSize: MainAxisSize.max,
+            //  mainAxisSize: MainAxisSize.max,
               children: [
                 Card(
                   color: CalendarOptions.of(context).headerMonthBackColor,
@@ -167,10 +166,10 @@ class _EventCalendarState extends State<EventCalendar> {
                 ),
                 if (widget.middleWidget != null)
                   widget.middleWidget!.call(EventCalendar.dateTime!)!,
-                Events(onEventsChanged: () {
-                  widget.onChangeDateTime?.call(EventCalendar.dateTime!);
-                  setState(() {});
-                }),
+                // Events(onEventsChanged: () {
+                //   widget.onChangeDateTime?.call(EventCalendar.dateTime!);
+                //   setState(() {});
+                // }),
               ],
             ),
           ),
